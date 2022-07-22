@@ -11,12 +11,12 @@ class Images extends Model
 
   public function comments()
   {
-    return $this->hasMany(Comment::class);
+    return $this->hasMany(Comment::class,'image_id');
   }
 
   public function likes()
   {
-    return $this->hasMany(Like::class);
+    return $this->hasMany(Like::class,'image_id');
   }
   public function user()
   {

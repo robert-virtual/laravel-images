@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
+
+Route::resources([
+  'images' => ImageController::class,
+  'profile' => UsersController::class
+]);
+
+Route::post('comments',[ImageController::class,'comment']);
+Route::post('likes',[ImageController::class,'like']);
+
+Route::view('register','users.create');
+Route::view('login','users.login');
+Route::post('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
+
+
+
+
