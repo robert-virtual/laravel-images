@@ -13,5 +13,8 @@
   </div>
   <button class="primary-btn">Login</button>
 </form>
+@if(session('error'))
+<p class="error">{{session('error')}}</p>
+@endif
 <a href="{{url('register')}}">Register</a>
 @endsection

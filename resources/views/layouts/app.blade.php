@@ -12,11 +12,16 @@
 </head>
 
 <body>
-  <nav>
+  <nav class="row">
     <a href="{{url('/')}}">Inicio</a>
     <a href="{{url('/images')}}">Images</a>
     @if(session('id'))
-    <a href='{{url("/profile")}}'>Profile</a>
+    <a href='{{url("/profile")}}'>{{session('name')}}</a>
+    <form action="/logout" method="POST" class="row">
+      @csrf
+      @method('DELETE')
+      <button class="primary-btn">Logout</button>
+    </form>
     @else
     <a href="{{url('/login')}}">Login</a>
     @endif

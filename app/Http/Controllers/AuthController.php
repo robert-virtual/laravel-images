@@ -13,10 +13,10 @@ class AuthController extends Controller
   {
     $user = User::where('email', $req->email)->first();
     if (!$user) {
-      return redirect('/login');
+      return redirect('/login')->with('error','Bad credentials.');
     }
     if (!Hash::check($req->password,$user->password)) {
-      return redirect('/login');
+      return redirect('/login')->with('error','Bad credentials');
     }
     session(['id' => $user->id]);
     session(['name' => $user->name]);
@@ -32,10 +32,16 @@ class AuthController extends Controller
     $user->nick = $req->name . $req->surname;
     $user->role = 'user';
     $user->email = $req->email;
-    $user->password = Hash::make($req->email);
+    $user->password = Hash::make($req->password);
     $user->save();
     session(['id' => $user->id]);
     session(['name' => $user->name]);
     return redirect('/');
   }
+  public function logout(Request $req)
+  {
+    session()->invalidate();
+    return redirect('/images');
+  }
+
 }

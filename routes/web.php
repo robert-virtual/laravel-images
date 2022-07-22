@@ -32,6 +32,7 @@ Route::view('register','users.create');
 Route::view('login','users.login');
 Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
+Route::delete('logout',[AuthController::class,'logout']);
 
 
 

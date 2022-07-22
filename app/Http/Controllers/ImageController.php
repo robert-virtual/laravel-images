@@ -52,6 +52,8 @@ class ImageController extends Controller
   public function show($id)
   {
     //
+    $image = Images::find($id);
+    return view('images.show',['image'=>$image]);
   }
 
   /**
@@ -95,7 +97,7 @@ class ImageController extends Controller
     $comment->user_id = session('id');
     $comment->image_id = $req->image_id;
     $comment->save();
-    return redirect('/images');
+    return redirect()->back();
   }
   public function like(Request $req)
   {
