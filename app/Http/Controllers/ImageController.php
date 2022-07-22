@@ -29,7 +29,7 @@ class ImageController extends Controller
   public function create()
   {
     //
-    return view('images.Create');
+    return view('images.create');
   }
 
   /**
@@ -38,9 +38,14 @@ class ImageController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(Request $req)
   {
-    //
+    $image = new Images;
+    $image->description = $req->description;
+    $image->user_id = session('id');
+    $image->image_path = explode('/',$req->image->store('images'))[1];
+    $image->save();
+    return redirect('/images');
   }
 
   /**
@@ -53,7 +58,7 @@ class ImageController extends Controller
   {
     //
     $image = Images::find($id);
-    return view('images.show',['image'=>$image]);
+    return view('images.show', ['image' => $image]);
   }
 
   /**
@@ -88,6 +93,8 @@ class ImageController extends Controller
   public function destroy($id)
   {
     //
+    $image = Images::destroy($id);
+    return redirect()->back();
   }
 
   public function comment(Request $req)

@@ -20,13 +20,21 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::resources([
-  'images' => ImageController::class,
-  'profile' => UsersController::class
-]);
+Route::resource(
+  'images', ImageController::class,
+);
+Route::resource(
+  'profile', UsersController::class
+)
+->middleware('checksession');
 
-Route::post('comments',[ImageController::class,'comment']);
-Route::post('likes',[ImageController::class,'like']);
+
+
+Route::post('comments',[ImageController::class,'comment'])
+->middleware('checksession');
+
+Route::post('likes',[ImageController::class,'like'])
+->middleware('checksession');
 
 Route::view('register','users.create');
 Route::view('login','users.login');

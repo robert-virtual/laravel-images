@@ -10,11 +10,15 @@
 @section('content')
 <h2>Images</h2>
 
+@if(session('id'))
+<a href="{{url('/images/create')}}">Publicar Image</a>
+@endif
+
 @isset($images)
 <div class="grid">
   @foreach($images as $image)
   <div class="image">
-    <img src="{{asset($image->image_path)}}" alt="{{$image->image_path}}"></img>
+    <img src="{{asset('pictures/'.$image->image_path)}}" alt="{{$image->description}}"></img>
     <p><b>{{$image->user->name}}</b> {{$image->description}} </p>
 
     @if($image->likes->where('user_id',session('id'))->first())
@@ -50,6 +54,7 @@
         Publicar
       </button>
     </form>
+    <p class="text-gray">{{$image->created_at->diffForHumans()}}</p>
   </div>
   @endforeach
 </div>
